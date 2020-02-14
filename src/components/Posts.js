@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, lazy} from 'react'
 import { Link } from 'react-router-dom'
 import firebase from '../firebase.js'
 import { EditorState, convertFromRaw } from 'draft-js'
@@ -7,38 +7,41 @@ import createImagePlugin from 'draft-js-image-plugin'
 import styled from 'styled-components'
 import '../styles.css'
 
+const Hero = lazy(() => import('./Hero'))
+
 const imagePlugin = createImagePlugin()
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`
 
 const Layout = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  padding: 8px;
-  margin: 16px;
+  padding: 16px;
+  padding-top: 48px;
 
   @media(max-width: 768px){
     flex-direction: column;
+    padding-top: 16px;
   }
 `
 const Card = styled.div`
   text-decoration: none;
   color: #eee;
-  border-radius: 16px;
-  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
-  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(214,222,240,1);
+  -moz-box-shadow: 0px 0px 10px 1px rgba(214,222,240,1);
+  box-shadow: 0px 0px 10px 1px rgba(214,222,240,1); 
   padding: 24px;
   margin: 8px;
   height: 500px;
   overflow: hidden;
+  transition: 0.3s;
   background: -webkit-linear-gradient(rgba(0,0,0,1) 0%, rgba(92,91,73,1) 60%, rgba(238,238,238,1) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  transition: 0.3s;
-
-  h1 {
-    text-decoration: none;
-  }
 
   &:before, &:after {
     -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
@@ -98,7 +101,7 @@ class Posts extends Component {
     const contentlist = posts.map(post => 
       
         <Card key={post.key}>
-          <Link to={`/post/${post.key}`}>
+          <StyledLink to={`/post/${post.key}`}>
           <article className='posts'>
             <div> 
               <h1 className='mt0 lh-title'>{post.title}</h1>
@@ -110,14 +113,17 @@ class Posts extends Component {
             <p className="f6 lh-copy gray mv0">By <span className="ttu">Alvin Miftah</span></p>
             <time className="f6 db gray">{post.date}</time>
           </article>  
-          </Link>
+          </StyledLink>
         </Card>
       
     )
     return(
-      <Layout>
-        {contentlist}
-      </Layout>
+      <div>
+        <Hero />
+        <Layout>
+          {contentlist}
+        </Layout>
+      </div>
     )
   }
 }

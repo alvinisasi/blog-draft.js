@@ -10,7 +10,8 @@ const Layout = styled.div`
 	margin: 48px 80px 48px 80px;
 
 	@media(max-width: 768px){
-		margin: 24px 48px 24px 48px;
+		margin: 48px;
+		padding-top: 72px;
 	}
 `
 

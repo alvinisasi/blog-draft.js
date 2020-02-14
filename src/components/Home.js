@@ -5,7 +5,6 @@ const Header = lazy(() => import('./Header'))
 const Posts = lazy(() => import('./Posts'))
 const Post = lazy(() => import('./Post'))
 const Portofolio = lazy(() => import('./Portofolio'))
-// const Hero = lazy(() => import('./Hero'))
 
 export default function Home() {
   return (
